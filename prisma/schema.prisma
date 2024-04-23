@@ -18,3 +18,19 @@ model Post {
 
     @@index([name])
 }
+
+model Usuario {
+    id       String    @id @default(uuid())
+    email    String    @unique
+    balance  Decimal
+    retenido Decimal
+    credito  Decimal
+    targeta  Tarjeta[]
+}
+
+model Tarjeta {
+    id        String   @id @default(uuid())
+    codigo    String   @unique
+    Usuario   Usuario? @relation(fields: [usuarioId], references: [id])
+    usuarioId String?
+}
